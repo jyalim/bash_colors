@@ -2,7 +2,7 @@
 # Prints colors to command line.
 function colors() {
     local COLS=$(tput cols)
-    local MESSAGE=${1:-"-Poopy"}
+    local MESSAGE="-${1:-Linux}"
     local WIDTH=$(( ${#MESSAGE} + 4 )) # 3 for number length, 1 for a space.
     local COLN=$(($( python -c "print int(float(${COLS})/float($WIDTH))") - 1))
     local ROWN=$(($( python -c "print int(256./float($COLN))" ) ))
