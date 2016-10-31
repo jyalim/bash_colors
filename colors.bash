@@ -11,10 +11,9 @@ function colors() {
   local mess="-${1:-Linux}"
   local width=$(( ${#mess} + 4 )) # 3 for number length, 1 for a space.
   local maxColors=256
-#  local maxUserCs=16
-  read -a n <<< $( python -c "for k in range(int(float($cols)/float($width))): print(k)")
+  n=( $(seq 0 $((cols/width-1)) ) ) 
   local n_last=$((${n[@]:(-1)}))
-  read -a m <<< $( python -c "for k in range(int(256./float($n_last))+1): print(k)")
+  m=( $(seq 0 $((256/n_last+1)) ) )
   local c=0
   for i in ${m[@]}; do
     for j in ${n[@]}; do
@@ -22,7 +21,6 @@ function colors() {
       eval 'echo -ne "\033[38;05;${c}m${str}\033[m"'
       let c++
       [[ $c -ge $maxColors ]] && echo '' && return
-#      [[ $c -eq $maxUserCs ]] && echo '' || :
     done
     echo ''
   done
